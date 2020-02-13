@@ -1,7 +1,16 @@
-function setup() {
+let ball;
+let environment;
 
+function setup() {
+  createCanvas(640, 480);
+  ball = new Ball();
+  environment = new BasicEnvironment();
 }
 
 function draw() {
-  ellipse(50, 50, 80, 80);
+  environment.applyForces(ball);
+  ball.update();
+
+  environment.display();
+  ball.display();
 }
