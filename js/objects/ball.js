@@ -21,7 +21,7 @@ class Ball extends P5Object {
 
   checkBounds() {
     if (this.location.x > width || this.location.x < 0) {
-      this.velocity.x = this.velocity.x * -0.8;
+      this.velocity.x = this.velocity.x * -0.9;
       let reactionForce = p5.Vector.mult(this.acceleration, this.mass);
       let oppositeForce = createVector(reactionForce.x * -1, reactionForce.y);
       this.applyForce(oppositeForce);
@@ -31,7 +31,7 @@ class Ball extends P5Object {
         Ball.counter ++;
         console.log(`vy = ${this.velocity.y} ay = ${this.acceleration.y}`);
       }
-      this.velocity.y = this.velocity.y * -0.8;
+      this.velocity.y = this.velocity.y * -0.9;
       let reactionForce = p5.Vector.mult(this.acceleration, this.mass);
       let oppositeForce = createVector(reactionForce.x, reactionForce.y * -1);
       this.applyForce(oppositeForce);
