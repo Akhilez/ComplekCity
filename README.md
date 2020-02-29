@@ -1,4 +1,4 @@
-#ComplekCity
+# ComplekCity
 
 A simple model of a city.
 
@@ -7,18 +7,18 @@ Each citizen is analogous to a cell and each business is a function of the body.
 This model attempts to create a city that can live, expand or die.\
 The experiment tries to answer the question: What parameters make a city live?
 
----
+----
 
-####Rules of ComplekCity:
+#### Rules of ComplekCity:
 
-The city:
+##### The city:
   - Consists of a road network, citizens and businesses.
   - 1 minute = 1 day
   - A business can mean government, restaurant or office.
   - A point can mean money, food or energy.
   - A city dies if all citizens or all businesses die.
 
-A citizen:
+##### A citizen:
   - Has points which decrease linearly with time.
   - Has eyes that can see a certain range.
   - They always maintain a distance from any object in the city, including other citizens.
@@ -39,14 +39,14 @@ A citizen:
   - Dies if points go to 0.
   - If alive for 18 days, it makes 2 off-springs.
 
-A business:
+##### A business:
   - A business has an owner who is a citizen or the government.
   - When a citizen comes to a business, the citizen and the owner both get 2 points.
   - If the owner's points go < threshold, the business no longer exists and the owner becomes a free citizen.
 
----
+----
 
-Changes planned for V2:
+##### Changes planned for V2:
   - Citizen moves at variable speed.
   - Points decrease non-linearly with time depending on how fast it is moving.
   - Remembers speed at the instant.
