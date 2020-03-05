@@ -26,7 +26,7 @@ The experiment tries to answer the question: What parameters make a city live?
   - Every second, it notes down its location. This array of location points is called a path.
   - Score of a path: max points in the day + average points in the day.
   - Has history of the previous path and its best path.
-  - Visiting a business for 1 second will give him H joules.
+  - Visiting a business for 1 second will give him 2 points.
   - Can choose to move in 3 ways:
       - Previous path location at that second.
       - Its best path location at that second.
