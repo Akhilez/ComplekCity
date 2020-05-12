@@ -11,6 +11,7 @@ class ComplekCity {
     this.sketch = sketch;
 
     this.paramsInjector = new ParamsInjector();
+    this.cityBuilder = new CityBuilder(this);
     this.episodeManager = new EpisodeManager(this);
     this.swarmManager = new SwarmManager(this);
     this.stats = new StatsManager(this);
