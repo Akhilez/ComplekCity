@@ -14,27 +14,67 @@ class CityBuilder {
   }
 
   renderBlock(block) {
+
     if (block == null) return;
 
     let halfBlockSide = this.blockSide / 2;
-    let topLeft = this.sketch.createVector(block.cx - halfBlockSide, block.cy - halfBlockSide);
-    let topRight = this.sketch.createVector(block.cx + halfBlockSide, block.cy - halfBlockSide);
-    let bottomLeft = this.sketch.createVector(block.cx - halfBlockSide, block.cy + halfBlockSide);
-    let bottomRight = this.sketch.createVector(block.cx + halfBlockSide, block.cy + halfBlockSide);
+    let oneThird = this.blockSide / 3;
+
+    let x0 = block.cx - halfBlockSide;
+    let x1 = x0 + oneThird;
+    let x2 = x1 + oneThird;
+    let x3 = x2 + oneThird;
+
+    let y0 = block.cy - halfBlockSide;
+    let y1 = y0 + oneThird;
+    let y2 = y1 + oneThird;
+    let y3 = y2 + oneThird;
 
     this.sketch.stroke(0);
 
-    if (block.connections.left == null)
-      this.sketch.line(topLeft.x, topLeft.y, bottomLeft.x, bottomLeft.y);
+    /*
+        x0x1x2x3
+    y0 |_|_|_|
+    y1 |_|_|_|
+    y2 |_|_|_|
+    y3
+     */
 
-    if (block.connections.top == null)
-      this.sketch.line(topLeft.x, topLeft.y, topRight.x, topRight.y);
+    if (block.connections.left == null) {
+      // Left is blocked.
+      this.sketch.line(x1, y1, x1, y2);
+    } else {
+      // Left is open.
+      this.sketch.line(x0, y1, x1, y1);
+      this.sketch.line(x0, y2, x1, y2);
+    }
 
-    if (block.connections.right == null)
-      this.sketch.line(topRight.x, topRight.y, bottomRight.x, bottomRight.y);
+    if (block.connections.top == null) {
+      // Top is blocked.
+      this.sketch.line(x1, y1, x2, y1);
+    } else {
+      // Top is open.
+      this.sketch.line(x1, y0, x1, y1);
+      this.sketch.line(x2, y0, x2, y1);
+    }
 
-    if (block.connections.bottom == null)
-      this.sketch.line(bottomLeft.x, bottomLeft.y, bottomRight.x, bottomRight.y);
+    if (block.connections.right == null) {
+      // Right is blocked.
+      this.sketch.line(x2, y1, x2, y2);
+    } else {
+      // Right is open.
+      this.sketch.line(x2, y1, x3, y1);
+      this.sketch.line(x2, y2, x3, y2);
+    }
+
+    if (block.connections.bottom == null) {
+      // Bottom is blocked.
+      this.sketch.line(x1, y2, x2, y2);
+    } else {
+      // Bottom is open.
+      this.sketch.line(x1, y2, x1, y3);
+      this.sketch.line(x2, y2, x2, y3);
+    }
 
   }
 
@@ -50,7 +90,7 @@ class CityBuilder {
     let randomX = [];
     let randomY = [];
 
-    for (let i = 0; i < nRoads * 2; ++i) {
+    for (let i = 0; i < nRoads * nRoads; ++i) {
       randomX[i] = i % nRoads;
       randomY[i] = i % nRoads;
     }
@@ -81,7 +121,7 @@ class CityBuilder {
     for (let i = 0; i < rows; i++) {
       let row = [];
       for (let j = 0; j < rows; j++)
-        row.push(new Intersection(i, j, i * this.blockSide + halfBlockSide, j * this.blockSide + halfBlockSide));
+        row.push(new CityBlock(j, i, j * this.blockSide + halfBlockSide, i * this.blockSide + halfBlockSide));
       matrix.push(row);
     }
     return matrix;
@@ -89,7 +129,7 @@ class CityBuilder {
 
 }
 
-class Intersection {
+class CityBlock {
   constructor(x, y, cx, cy) {
 
     this.x = x;
