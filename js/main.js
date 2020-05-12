@@ -20,6 +20,7 @@ class ComplekCity {
     this.running = false;
 
     this.uiManager.setupSketch();
+    this.cityBuilder.build();
 
   }
 
