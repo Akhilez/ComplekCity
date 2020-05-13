@@ -17,7 +17,7 @@ class ComplekCity {
     this.stats = new StatsManager(this);
     this.uiManager = new UIManager(this);
 
-    this.running = false;
+    this.running = true;
 
     this.uiManager.setupSketch();
     this.cityBuilder.build();
@@ -43,7 +43,7 @@ class ComplekCity {
     }
 
     sketch.background(230);
-    this.uiManager.display(sketch);
+    this.uiManager.display();
   }
 }
 

@@ -8,3 +8,13 @@ function shuffle(array) {
   }
   return array;
 }
+
+function randomCanvasVector(game) {
+  let sketch = game.sketch;
+  let params = game.paramsInjector.params;
+  return sketch.createVector(sketch.random(0, params.side), sketch.random(0, params.side));
+}
+
+function randVec() {
+  return p5.Vector.random2D();
+}

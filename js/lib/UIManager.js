@@ -15,6 +15,7 @@ class UIManager {
 
   display() {
     this.game.cityBuilder.renderBlocks();
+    this.game.swarmManager.displayAll();
   }
 
 }
