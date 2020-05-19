@@ -5,6 +5,8 @@ class CityBuilder {
     this.sketch = game.sketch;
 
     this.blockSide = this.params.side * this.params.rows;
+
+    this.blocks = [];
   }
 
   renderBlocks() {
@@ -125,6 +127,57 @@ class CityBuilder {
       matrix.push(row);
     }
     return matrix;
+  }
+
+  checkBounds(citizen) {
+
+    let i = Math.floor(citizen.location.x / this.blockSide) - 1;
+    let j = Math.floor(citizen.location.y / this.blockSide) - 1;
+
+    if (i < 0 || j < 0) return;
+
+    let block = this.blocks[i][j];
+
+    if (block == null) {
+      // console.log(`\nBlock c loc = ${i * this.blockSide + this.blockSide / 2}, ${j * this.blockSide + this.blockSide / 2}`);
+      // console.log(`Location: ${citizen.location.x}, ${citizen.location.y}`);
+      return;
+    }
+
+    let halfBlockSide = this.blockSide / 2;
+    let oneThird = this.blockSide / 3;
+
+    let x0 = block.cx - halfBlockSide;
+    let x1 = x0 + oneThird;
+    let x2 = x1 + oneThird;
+    let x3 = x2 + oneThird;
+
+    let y0 = block.cy - halfBlockSide;
+    let y1 = y0 + oneThird;
+    let y2 = y1 + oneThird;
+    let y3 = y2 + oneThird;
+
+    let loc = citizen.location;
+
+    /*
+        x0x1x2x3
+    y0 |_|_|_|
+    y1 |_|_|_|
+    y2 |_|_|_|
+    y3
+     */
+
+    // Block corners.
+    if ((loc.x <= x1 || loc.x >= x2) && (loc.y <= y1 || loc.y >=y2)) {
+      citizen.flipVelocityX();
+    } else if ((loc.y >= y1 || loc.y <= y2) && (loc.x <= x1 || loc.x >= x2)) {
+      citizen.flipVelocityY();
+    }
+
+    if (citizen.location.x <= x1 && block.connections.left == null) {
+        citizen.flipVelocityX();
+    }
+
   }
 
 }

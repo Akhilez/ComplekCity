@@ -9,7 +9,7 @@ class Citizen {
 
     this.location = randomCanvasVector(game);
     this.velocity = game.sketch.createVector(0.0, 0.0);
-    this.acceleration = game.sketch.createVector(0.0, 0.0);//randVec();
+    this.acceleration = randVec();
     this.drag = 0.01;
 
     this.initState();
@@ -43,6 +43,8 @@ class Citizen {
   }
 
   update() {
+    this.game.cityBuilder.checkBounds(this);
+
     this.setVelocity(p5.Vector.add(this.velocity, this.acceleration));
     this.location.add(this.velocity);
     this.acceleration.mult(0);
@@ -50,8 +52,16 @@ class Citizen {
 
   display() {
     this.game.sketch.noStroke();
-    this.game.sketch.fill(0, 17,255);
+    this.game.sketch.fill(0, 17, 255);
     this.game.sketch.ellipse(this.location.x, this.location.y, this.diameter);
+  }
+
+  flipVelocityX() {
+    this.velocity.x *= -1;
+  }
+
+  flipVelocityY() {
+    this.velocity.y *= -1;
   }
 
 }

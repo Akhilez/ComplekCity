@@ -16,5 +16,5 @@ function randomCanvasVector(game) {
 }
 
 function randVec() {
-  return p5.Vector.random2D();
+  return p5.Vector.random2D().mult(10);
 }
